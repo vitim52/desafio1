@@ -1,0 +1,170 @@
+1)
+# Dicionário para armazenar os pedidos com números exclusivos
+pedidos = {}
+numero_pedido = 1
+
+while True:
+    # Solicitar informações do cliente
+    nome_cliente = input("Digite o nome do cliente (ou 'sair' para encerrar): ")
+    
+    if nome_cliente.lower() == 'sair':
+        break
+
+    item_pedido = input("Digite o item do pedido: ")
+    valor_pedido = float(input("Digite o valor do pedido: "))
+
+    # Criar um novo pedido com número de pedido exclusivo
+    pedido = {
+        "Nome do Cliente": nome_cliente,
+        "Item do Pedido": item_pedido,
+        "Valor do Pedido": valor_pedido
+    }
+
+    # Armazenar o pedido no dicionário com número de pedido exclusivo
+    pedidos[numero_pedido] = pedido
+
+    # Incrementar o número de pedido exclusivo
+    numero_pedido += 1
+
+print("\nPedidos Registrados:")
+for numero, pedido in pedidos.items():
+    print(f"Pedido #{numero}: {pedido}")
+
+
+2)
+# Dados de exemplo - Você deve substituir isso por seus próprios dados ou um sistema de banco de dados real
+pedidos = [
+    {
+        "numero_pedido": 1,
+        "nome_cliente": "João",
+        "itens_pedidos": [
+            {"item": "Pizza", "preco": 12.99},
+            {"item": "Refrigerante", "preco": 2.99}
+        ]
+    },
+    {
+        "numero_pedido": 2,
+        "nome_cliente": "Maria",
+        "itens_pedidos": [
+            {"item": "Hambúrguer", "preco": 8.99},
+            {"item": "Batata Frita", "preco": 3.99}
+        ]
+    },
+    # Adicione mais pedidos conforme necessário
+]
+
+# Função para encontrar e exibir informações de um pedido com base no número do pedido
+def verificar_pedido(numero_pedido):
+    for pedido in pedidos:
+        if pedido["numero_pedido"] == numero_pedido:
+            print(f"Informações do Pedido #{numero_pedido}:")
+            print(f"Cliente: {pedido['nome_cliente']}")
+            print("Itens Pedidos:")
+            for item in pedido['itens_pedidos']:
+                print(f"- {item['item']}: R${item['preco']:.2f}")
+            valor_total = sum(item['preco'] for item in pedido['itens_pedidos'])
+            print(f"Valor Total: R${valor_total:.2f}")
+            return
+    print(f"Pedido #{numero_pedido} não encontrado.")
+
+# Exemplo de uso
+numero_pedido_procurado = 1  # Substitua pelo número do pedido desejado
+verificar_pedido(numero_pedido_procurado)
+
+
+3)
+# Inicialize um dicionário para armazenar os pedidos
+pedidos = {}
+
+# Função para adicionar um pedido
+def adicionar_pedido(numero, itens, valor_total):
+    pedido = {
+        'itens': itens,
+        'valor_total': valor_total,
+        'entregue': False  # O pedido é inicialmente marcado como não entregue
+    }
+    pedidos[numero] = pedido
+
+# Função para marcar um pedido como entregue
+def marcar_entregue(numero):
+    if numero in pedidos:
+        pedidos[numero]['entregue'] = True
+    else:
+        print("Pedido não encontrado.")
+
+# Função para calcular o valor total de todos os pedidos entregues
+def calcular_valor_total_entregues():
+    valor_total = 0
+    for numero, pedido in pedidos.items():
+        if pedido['entregue']:
+            valor_total += pedido['valor_total']
+    return valor_total
+
+# Exemplo de uso:
+adicionar_pedido(1, ['Pizza', 'Refrigerante'], 25.0)
+adicionar_pedido(2, ['Hambúrguer', 'Batata Frita'], 15.0)
+
+# Marque o primeiro pedido como entregue
+marcar_entregue(1)
+
+# Calcule o valor total de todos os pedidos entregues
+total_entregue = calcular_valor_total_entregues()
+print(f"Valor total dos pedidos entregues: R${total_entregue:.2f}")
+
+
+4)
+# Inicializa uma lista vazia para armazenar os pedidos
+pedidos = []
+
+# Função para adicionar um novo pedido
+def adicionar_pedido():
+    pedido = input("Digite o nome do pedido: ")
+    pedidos.append({"pedido": pedido, "status": "pendente"})
+    print("Pedido adicionado com sucesso!")
+
+# Função para verificar o status de um pedido
+def verificar_status_pedido():
+    pedido = input("Digite o nome do pedido que deseja verificar: ")
+    encontrado = False
+    for p in pedidos:
+        if p["pedido"] == pedido:
+            print(f"Status do pedido '{pedido}': {p['status']}")
+            encontrado = True
+            break
+    if not encontrado:
+        print(f"Pedido '{pedido}' não encontrado!")
+
+# Função para marcar um pedido como entregue
+def marcar_pedido_entregue():
+    pedido = input("Digite o nome do pedido que deseja marcar como entregue: ")
+    encontrado = False
+    for p in pedidos:
+        if p["pedido"] == pedido:
+            p["status"] = "entregue"
+            print(f"Pedido '{pedido}' marcado como entregue!")
+            encontrado = True
+            break
+    if not encontrado:
+        print(f"Pedido '{pedido}' não encontrado!")
+
+# Loop principal do programa
+while True:
+    print("\nMenu de Opções:")
+    print("1. Adicionar um novo pedido")
+    print("2. Verificar o status de um pedido")
+    print("3. Marcar um pedido como entregue")
+    print("4. Sair do programa")
+
+    escolha = input("Escolha uma opção (1/2/3/4): ")
+
+    if escolha == "1":
+        adicionar_pedido()
+    elif escolha == "2":
+        verificar_status_pedido()
+    elif escolha == "3":
+        marcar_pedido_entregue()
+    elif escolha == "4":
+        print("Saindo do programa. Até mais!")
+        break
+    else:
+        print("Opção inválida. Por favor, escolha uma opção válida.")
